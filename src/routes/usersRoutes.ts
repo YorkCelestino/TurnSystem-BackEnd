@@ -19,8 +19,8 @@ class UsersRautes{
     config(): void{
         this.router.get('/get-user-list', this.usersController.list);
         this.router.post('/add-user',[verifySingUp.VerifyCreatedUser],this.usersController.created);
-        this.router.post('/update-user/:id',this.usersController.update)
-        this.router.post('/delete-user',this.usersController.delete);
+        this.router.post('/update-user',this.usersController.update)
+        this.router.post('/delete-user',this.usersController.changeStatus);
         this.router.get('/get-list-department'/*,verifyJwtToken.VerifyToken*/,this.usersController.listDepartment);
         this.router.post('/authenticate',this.loginController.login);
         this.router.get('/user-info', this.verifyJwtToken.VerifyToken, this.usersController.user);

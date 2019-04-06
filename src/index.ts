@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import  morgan  from 'morgan';
 import cors from 'cors';
 import bodyparse from 'body-parser';
-import config from './config/config'
+import config from './config/config';
 
 /**
  *Routes imports
@@ -12,6 +12,9 @@ import indexRoutes from './routes/indexRoutes';
 import usersRoutes from './routes/usersRoutes';
 import departmentsRoutes from './routes/departmentsRautes';
 import personRoutes from './routes/personRoutes';
+import motivosRoutes from './routes/motivosRoutes';
+import infoInstitutionRoutes from './routes/infoInstitutionRoutes';
+import turnsRoutes from './routes/turnsRoutes';
 
 class Server {
     public app: Application;
@@ -37,6 +40,9 @@ class Server {
         this.app.use('/api/users',usersRoutes);
         this.app.use('/api/departments',departmentsRoutes);
         this.app.use('/api/person',personRoutes);
+        this.app.use('/api/motivos',motivosRoutes);
+        this.app.use('/api/infoInstitution',infoInstitutionRoutes);
+        this.app.use('/api/turns', turnsRoutes);
     }
     start():void{
         this.app.listen(this.app.get('port'),()=>{

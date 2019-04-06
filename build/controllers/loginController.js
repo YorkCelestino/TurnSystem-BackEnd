@@ -36,8 +36,8 @@ class LoginController {
                 else {
                     if (bcrypt_1.default.compareSync(req.body.password, user.password)) {
                         let token = jsonwebtoken_1.default.sign({ id: user.Id_Usuario }, config_1.default.secret, {
-                            //expiresIn: 86400 // expires in 24 hours
-                            expiresIn: "15m"
+                            expiresIn: 86400 // expires in 24 hours
+                            // expiresIn: "15m" // expires in 15 minutes
                         });
                         return res.send({
                             "token": token

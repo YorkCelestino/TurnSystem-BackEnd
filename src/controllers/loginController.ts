@@ -30,8 +30,8 @@ class LoginController{
           if ( bcrypt.compareSync(req.body.password,user.password)){
             
             let  token = jwt.sign({ id: user.Id_Usuario}, config.secret, {
-              //expiresIn: 86400 // expires in 24 hours
-              expiresIn: "15m"
+               expiresIn: 86400 // expires in 24 hours
+              // expiresIn: "15m" // expires in 15 minutes
             });
             return res.send({
               "token": token});

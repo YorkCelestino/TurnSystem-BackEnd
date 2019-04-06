@@ -17,7 +17,7 @@ class UsersController{
       }   
       public async list (req:Request,res:Response): Promise<void> { 
     
-        const users = await pool.query('SELECT usuario.Id_Usuario,usuario.nombre,usuario.apellido,usuario.cedula,usuario.usuarios,usuario.password,departamento.nombreDepartamento,usuario.Estado,usuario.role FROM usuario INNER JOIN departamento WHERE usuario.Id_Departamento=departamento.Id_Departamento');
+        const users = await pool.query('SELECT usuario.Id_Usuario, usuario.id_Departamento ,usuario.nombre,usuario.apellido,usuario.cedula,usuario.usuarios,usuario.password,departamento.nombreDepartamento,usuario.Estado,usuario.role FROM usuario INNER JOIN departamento WHERE usuario.Id_Departamento=departamento.Id_Departamento');
    
           res.json(users);
       }
@@ -42,16 +42,18 @@ class UsersController{
        // res.json({message:'user save'});
     }
 
-    public async delete (req:Request,res:Response){
-        const { id } = req.params;
-        await pool.query('DELETE FROM USUARIO WHERE Id_Usuario =?',[id]);
-        res.json({delete:'deleting user ' + req.params.id});
+    public async changeStatus (req:Request, res:Response):Promise<void> {
+        await pool.query('UPDATE USUARIO SET estado = ? WHERE Id_USUARIO = ? ',[req.body.status, req.body.id]);
+        res.json({msj:'change Status User', update: req.body});
     }
-    public async update (req:Request,res:Response){
-        const {id} = req.params;
-        await pool.query('UPDATE USUARIO SET ? WHERE Id_USUARIO = ?',[req.body,id]);
 
-        res.json({update:'updatin Deparment' + req.params.id});
+    /**
+     * For Update User
+     */
+    public async update (req:Request,res:Response){
+     //   const {id} = req.params;
+        await pool.query('UPDATE USUARIO SET ? WHERE Id_USUARIO = ?',[req.body,req.body.Id_Usuario]);
+        res.json({msj:'updatin Deparment' ,update: req.body});
     }
 }
 
